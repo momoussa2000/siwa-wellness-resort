@@ -1,15 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
+  output: 'export',
   images: {
     unoptimized: true,
-    domains: ['vercel.app'],
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: '**',
-      },
-    ],
   },
   eslint: {
     // Warning: This allows production builds to successfully complete even if
@@ -19,7 +12,6 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  trailingSlash: true,
 }
 
 module.exports = nextConfig 
