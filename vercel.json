@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "public": true,
   "builds": [
     {
       "src": "package.json",
@@ -17,6 +18,7 @@
         "x-frame-options": "DENY",
         "x-content-type-options": "nosniff"
       },
+      "dest": "/$1",
       "continue": true
     },
     {
