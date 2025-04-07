@@ -17,10 +17,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} flex`}>
+      <body className={`${inter.className}`}>
         <ClientNav />
-        <main className="flex-grow min-h-screen bg-white pl-0 md:pl-64 pt-16 md:pt-0 transition-all duration-300 ease-in-out">
-          {children}
+        <main className="min-h-screen bg-white transition-all duration-300 ease-in-out pt-0 md:pt-0 px-4 md:px-8">
+          <div className="md:ml-20 pt-6 md:pt-8">
+            {children}
+          </div>
         </main>
       </body>
     </html>

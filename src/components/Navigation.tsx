@@ -3,219 +3,125 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
-// Import GSAP with direct modules for better compatibility
-import { gsap } from 'gsap';
+import { FaHome, FaFileAlt, FaBullseye, FaPencilRuler, FaUsers, FaMapMarkedAlt, FaBuilding, FaHiking, FaMoneyBillWave, FaChartLine } from 'react-icons/fa';
 
 const navItems = [
-  { name: 'Home', path: '/' },
-  { name: '1. Executive Summary', path: '/executive-summary' },
-  { name: '2. Vision & Mission', path: '/vision-mission' },
-  { name: '3. Concept & Design', path: '/concept-design' },
-  { name: '4. Target Market & Opportunity', path: '/target-market' },
-  { name: '5. Site & Location', path: '/site-location' },
-  { name: '6. Facility Layout', path: '/facility-layout' },
-  { name: '7. Activities & Experiences', path: '/activities' },
-  { name: '8. Service Model & Revenue', path: '/service-model' },
-  { name: '9. Financial Projections', path: '/financial-projections' }
+  { name: 'Home', path: '/', icon: <FaHome /> },
+  { name: '1. Executive Summary', path: '/executive-summary', icon: <FaFileAlt /> },
+  { name: '2. Vision & Mission', path: '/vision-mission', icon: <FaBullseye /> },
+  { name: '3. Concept & Design', path: '/concept-design', icon: <FaPencilRuler /> },
+  { name: '4. Target Market', path: '/target-market', icon: <FaUsers /> },
+  { name: '5. Site & Location', path: '/site-location', icon: <FaMapMarkedAlt /> },
+  { name: '6. Facility Layout', path: '/facility-layout', icon: <FaBuilding /> },
+  { name: '7. Activities', path: '/activities', icon: <FaHiking /> },
+  { name: '8. Service Model', path: '/service-model', icon: <FaMoneyBillWave /> },
+  { name: '9. Financial Projections', path: '/financial-projections', icon: <FaChartLine /> }
 ];
 
 export default function Navigation() {
   const pathname = usePathname();
-  const [isOpen, setIsOpen] = useState(false);
-  const line01Ref = useRef<SVGLineElement>(null);
-  const line02Ref = useRef<SVGLineElement>(null);
-  const line03Ref = useRef<SVGLineElement>(null);
-  const menuRef = useRef<HTMLDivElement>(null);
-  const navItemsRef = useRef<HTMLLIElement[]>([]);
-  const timelineRef = useRef<gsap.core.Timeline | null>(null);
-  
-  // Handle menu toggle directly without GSAP first
-  const toggleMenu = () => {
-    console.log('Toggle menu clicked, isOpen:', isOpen);
-    
-    setIsOpen(!isOpen);
-    
-    if (!menuRef.current) return;
-    
-    if (!isOpen) {
-      // Opening the menu
-      menuRef.current.style.visibility = 'visible';
-      menuRef.current.style.opacity = '1';
-      
-      if (line01Ref.current) {
-        line01Ref.current.style.transform = 'translateX(0) rotate(45deg)';
-      }
-      if (line02Ref.current) {
-        line02Ref.current.style.opacity = '0';
-      }
-      if (line03Ref.current) {
-        line03Ref.current.style.transform = 'translateX(0) rotate(-45deg)';
-      }
-    } else {
-      // Closing the menu
-      menuRef.current.style.opacity = '0';
-      
-      setTimeout(() => {
-        if (menuRef.current) {
-          menuRef.current.style.visibility = 'hidden';
-        }
-      }, 300);
-      
-      if (line01Ref.current) {
-        line01Ref.current.style.transform = 'translateX(40px) rotate(0deg)';
-      }
-      if (line02Ref.current) {
-        line02Ref.current.style.opacity = '1';
-      }
-      if (line03Ref.current) {
-        line03Ref.current.style.transform = 'translateX(-40px) rotate(0deg)';
-      }
-    }
+  const [expanded, setExpanded] = useState(false);
+  const sidebarRef = useRef<HTMLDivElement>(null);
+
+  // Toggle sidebar expansion
+  const toggleSidebar = () => {
+    setExpanded(!expanded);
   };
 
-  // Set initial states
-  useEffect(() => {
-    if (line01Ref.current) {
-      line01Ref.current.style.transform = 'translateX(40px)';
-    }
-    if (line03Ref.current) {
-      line03Ref.current.style.transform = 'translateX(-40px)';
-    }
-  }, []);
+  // Handle mouse enter/leave for automatic expansion
+  const handleMouseEnter = () => {
+    setExpanded(true);
+  };
 
-  // Handle resize
+  const handleMouseLeave = () => {
+    setExpanded(false);
+  };
+
+  // Close sidebar when navigating on mobile
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 768 && isOpen) {
-        setIsOpen(false);
-        
-        if (menuRef.current) {
-          menuRef.current.style.visibility = 'hidden';
-          menuRef.current.style.opacity = '0';
-        }
-        
-        if (line01Ref.current) {
-          line01Ref.current.style.transform = 'translateX(40px) rotate(0deg)';
-        }
-        if (line02Ref.current) {
-          line02Ref.current.style.opacity = '1';
-        }
-        if (line03Ref.current) {
-          line03Ref.current.style.transform = 'translateX(-40px) rotate(0deg)';
-        }
+      if (window.innerWidth < 768) {
+        setExpanded(false);
       }
     };
     
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [isOpen]);
-
-  // Close menu when navigating
-  useEffect(() => {
-    if (isOpen) {
-      setIsOpen(false);
-      
-      if (menuRef.current) {
-        menuRef.current.style.visibility = 'hidden';
-        menuRef.current.style.opacity = '0';
-      }
-      
-      if (line01Ref.current) {
-        line01Ref.current.style.transform = 'translateX(40px) rotate(0deg)';
-      }
-      if (line02Ref.current) {
-        line02Ref.current.style.opacity = '1';
-      }
-      if (line03Ref.current) {
-        line03Ref.current.style.transform = 'translateX(-40px) rotate(0deg)';
-      }
-    }
-  }, [pathname, isOpen]);
-
-  // Set up refs for nav items
-  const setNavItemRef = (el: HTMLLIElement | null, index: number) => {
-    if (el) {
-      navItemsRef.current[index] = el;
-    }
-  };
+  }, []);
 
   return (
     <>
-      {/* Header with logo and hamburger */}
-      <header className="fixed top-0 left-0 w-full h-16 px-4 flex justify-between items-center z-30 bg-emerald-800 md:hidden">
-        <div id="navLogo" className="text-xl font-bold text-white">
-          <Link href="/">Siwa Wellness Resort</Link>
-        </div>
-        <svg className="hamburger w-8 h-8 cursor-pointer" viewBox="0 0 80 80" onClick={toggleMenu}>
-          <line ref={line01Ref} className="line01" x1="0" y1="3" x2="80" y2="3" stroke="white" strokeWidth="6" />
-          <line ref={line02Ref} className="line02" x1="0" y1="40" x2="80" y2="40" stroke="white" strokeWidth="6" />
-          <line ref={line03Ref} className="line03" x1="0" y1="77" x2="80" y2="77" stroke="white" strokeWidth="6" />
-        </svg>
-      </header>
-
-      {/* Full-screen Menu with transitions */}
       <div 
-        ref={menuRef} 
-        className="menu fixed top-0 left-0 w-screen h-screen bg-gradient-to-b from-emerald-800 to-emerald-700 z-20 md:hidden"
-        style={{ 
-          visibility: 'hidden', 
-          opacity: 0,
-          transition: 'opacity 0.3s ease'
-        }}
+        ref={sidebarRef}
+        className={`fixed top-0 left-0 h-full bg-emerald-800 text-white z-40 transition-all duration-300 ease-in-out
+                   ${expanded ? 'w-64' : 'w-20'}`}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
-        <nav className="navigation absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          <ul className="p-0 m-0">
-            {navItems.map((item, index) => (
-              <li 
-                key={item.path} 
-                ref={(el) => setNavItemRef(el, index)} 
-                className="list-none text-2xl mb-4"
-                style={{ 
-                  transform: isOpen ? 'translateX(0)' : 'translateX(-110px)',
-                  transition: `transform 0.5s ease ${index * 0.1}s`
-                }}
+        {/* Logo and toggle button */}
+        <div className="flex items-center justify-between p-4 border-b border-emerald-700">
+          <div className={`logo transition-opacity duration-300 ${expanded ? 'opacity-100' : 'opacity-0'}`}>
+            <Link href="/" className="text-xl font-bold whitespace-nowrap">
+              Siwa Wellness
+            </Link>
+          </div>
+          <button 
+            onClick={toggleSidebar}
+            className={`w-10 h-10 rounded-full flex items-center justify-center text-white transition-all duration-300 
+                       hover:bg-emerald-700 ${expanded ? 'absolute right-4' : 'mx-auto'}`}
+          >
+            {expanded ? (
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            )}
+          </button>
+        </div>
+
+        {/* Navigation links */}
+        <ul className="mt-6 space-y-2 px-2">
+          {navItems.map((item) => (
+            <li key={item.path} className="relative">
+              <Link
+                href={item.path}
+                className={`flex items-center p-3 rounded-lg transition-all duration-200
+                           ${pathname === item.path
+                              ? 'bg-emerald-700 text-white'
+                              : 'text-emerald-100 hover:bg-emerald-700 hover:text-white'
+                           }`}
               >
-                <Link 
-                  href={item.path}
-                  className={`block py-2 text-white transition-colors hover:text-emerald-200 ${
-                    pathname === item.path ? 'font-bold text-emerald-200' : ''
-                  }`}
-                >
+                <span className="text-xl min-w-[24px]">{item.icon}</span>
+                <span className={`ml-3 whitespace-nowrap transition-opacity duration-300 ${expanded ? 'opacity-100' : 'opacity-0'}`}>
                   {item.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+                </span>
+              </Link>
+              {/* Tooltip for collapsed state */}
+              {!expanded && (
+                <div className="absolute left-full top-0 ml-2 p-2 bg-white text-emerald-800 rounded shadow-lg 
+                                opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto 
+                                transition-opacity duration-200 z-50 whitespace-nowrap hidden md:block">
+                  {item.name}
+                </div>
+              )}
+            </li>
+          ))}
+        </ul>
+
+        {/* Footer */}
+        <div className="absolute bottom-0 left-0 w-full p-4 border-t border-emerald-700">
+          <div className={`transition-opacity duration-300 ${expanded ? 'opacity-100' : 'opacity-0'}`}>
+            <div className="text-sm text-emerald-200">© {new Date().getFullYear()}</div>
+            <div className="text-xs text-emerald-300">Siwa Wellness Resort</div>
+          </div>
+        </div>
       </div>
 
-      {/* Desktop Sidebar - only visible on md+ screens */}
-      <nav className="hidden md:flex fixed top-0 left-0 h-full w-64 bg-gradient-to-b from-emerald-800 to-emerald-700 text-white shadow-xl z-20 flex-col">
-        <div className="p-6 mb-8">
-          <Link href="/" className="text-2xl font-bold text-emerald-50 hover:text-white transition-colors">
-            Siwa Wellness Resort
-          </Link>
-        </div>
-        <div className="flex-grow overflow-y-auto">
-          {navItems.map((item) => (
-            <Link
-              key={item.path}
-              href={item.path}
-              className={`block px-6 py-3 text-sm font-medium transition-colors duration-150 ${
-                pathname === item.path
-                  ? 'bg-emerald-600 text-white border-l-4 border-emerald-300'
-                  : 'text-emerald-100 hover:bg-emerald-600 hover:text-white'
-              }`}
-            >
-              {item.name}
-            </Link>
-          ))}
-        </div>
-        {/* Optional Footer in Sidebar */}
-        <div className="p-4 mt-auto text-xs text-emerald-300">
-          © {new Date().getFullYear()} Siwa Wellness Resort
-        </div>
-      </nav>
+      {/* Main content padding adjustment based on sidebar state */}
+      <div className={`transition-all duration-300 ease-in-out ${expanded ? 'md:ml-64' : 'md:ml-20'} ml-0`}></div>
     </>
   );
 } 
