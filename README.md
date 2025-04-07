@@ -1,3 +1,38 @@
+# Siwa Wellness Resort 2025
+
+Official website for the Siwa Wellness Resort project.
+
+## Setup for Automatic Deployments
+
+To enable automatic deployments to Vercel when pushing to GitHub:
+
+1. Create a new Vercel project and link it to your GitHub repository
+2. Add the following secrets to your GitHub repository:
+   - `VERCEL_TOKEN`: Your Vercel API token (generate from Vercel account settings)
+   - `VERCEL_ORG_ID`: Your Vercel organization ID (find in Vercel project settings)
+   - `VERCEL_PROJECT_ID`: Your Vercel project ID (find in Vercel project settings)
+
+3. Push to the main branch to trigger a deployment.
+
+## Local Development
+
+```bash
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
+
+# Build for production
+npm run build
+```
+
+## Project Structure
+
+- `/src/app/` - Next.js app router pages
+- `/src/components/` - Reusable React components
+- `/public/` - Static assets (images, etc.)
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
