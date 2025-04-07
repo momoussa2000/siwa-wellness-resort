@@ -43,3 +43,20 @@ body {
   /* Remove transition as GSAP will handle this */
   transition: none;
 }
+
+/* Add styles to ensure full-width hero images */
+.hero-section {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ensure sidebar doesn't interfere with full-width elements */
+@media (min-width: 768px) {
+  .hero-section {
+    width: calc(100vw - 5rem); /* 5rem is 20 in Tailwind (md:ml-20) */
+    margin-left: 0;
+    left: -5rem;
+  }
+}

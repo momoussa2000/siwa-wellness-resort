@@ -27,9 +27,9 @@ export default function Home() {
   }, [slideshowImages.length]);
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="relative h-screen">
+    <div className="min-h-screen overflow-hidden">
+      {/* Hero Section - Full width with no borders using CSS class */}
+      <section className="hero-section h-screen">
         <Image
           src="/images/a-wide-angle-landscape-render-of-a-groun_RKGBscJ9T5K3M-iHzFEZmw_vvC4yO75TfulKwWV_08VPQ.png"
           alt="Siwa Wellness Resort Layout"
@@ -60,7 +60,7 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section className="py-20 px-4 bg-white">
+      <section className="py-20 px-4 md:px-8 bg-white">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -108,7 +108,7 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 px-4 bg-gray-50">
+      <section className="py-20 px-4 md:px-8 bg-gray-50">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Experience Wellness</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -142,7 +142,7 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section className="py-20 px-4 bg-white">
+      <section className="py-20 px-4 md:px-8 bg-white">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">Join Us in Siwa</h2>
           <p className="text-gray-800 mb-8">
