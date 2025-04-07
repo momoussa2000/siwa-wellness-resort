@@ -20,7 +20,7 @@ export default function RootLayout({
       <body className={`${inter.className} m-0 p-0 overflow-x-hidden`}>
         <ClientNav />
         <main className="min-h-screen bg-white transition-all duration-300 ease-in-out">
-          <div className="md:ml-20 p-6 md:p-8">
+          <div className="md:ml-20 px-6 py-6 md:px-8 md:py-8">
             {children}
           </div>
         </main>
