@@ -2,7 +2,8 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import gsap from 'gsap';
 
 const navItems = [
   { name: 'Home', path: '/' },
@@ -19,73 +20,126 @@ const navItems = [
 
 export default function Navigation() {
   const pathname = usePathname();
-  const sidebarWidth = "w-64"; // Define sidebar width
   const [isOpen, setIsOpen] = useState(false);
+  const line01Ref = useRef<SVGLineElement>(null);
+  const line02Ref = useRef<SVGLineElement>(null);
+  const line03Ref = useRef<SVGLineElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const navItemsRef = useRef<Array<HTMLLIElement | null>>([]);
+  const timelineRef = useRef<gsap.core.Timeline | null>(null);
   
-  // Close menu when navigating
+  // Initialize animation timeline
   useEffect(() => {
-    setIsOpen(false);
-  }, [pathname]);
+    // Set initial states
+    gsap.set(line01Ref.current, { x: 40 });
+    gsap.set(line03Ref.current, { x: -40 });
+    gsap.set(navItemsRef.current, { x: -110 });
+    
+    // Create timeline
+    timelineRef.current = gsap.timeline({ paused: true })
+      .to(line01Ref.current, { duration: 0.4, x: '+=40' }, 0)
+      .to(line03Ref.current, { duration: 0.4, x: '-=40' }, 0)
+      .to(line02Ref.current, { duration: 0.4, autoAlpha: 0 }, 0)
+      .to(menuRef.current, { duration: 0.4, autoAlpha: 1 }, 0)
+      .to(navItemsRef.current, { 
+        duration: 0.4, 
+        x: 0, 
+        ease: "sine.out", 
+        stagger: 0.1 
+      }, 0.5)
+      .to(navItemsRef.current, { 
+        duration: 0.8, 
+        marginBottom: '20px', 
+        ease: "power1.out" 
+      });
+    
+    return () => {
+      // Cleanup
+      if (timelineRef.current) {
+        timelineRef.current.kill();
+      }
+    };
+  }, []);
 
-  // Close menu when clicking outside on mobile
+  // Handle menu toggle
+  const toggleMenu = () => {
+    if (timelineRef.current) {
+      if (isOpen) {
+        timelineRef.current.reverse();
+      } else {
+        timelineRef.current.play();
+      }
+      setIsOpen(!isOpen);
+    }
+  };
+
+  // Handle resize
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
-        setIsOpen(true);
-      } else {
-        setIsOpen(false);
+        if (timelineRef.current && isOpen) {
+          timelineRef.current.reverse();
+          setIsOpen(false);
+        }
       }
     };
-
-    // Set initial state based on screen size
-    handleResize();
     
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [isOpen]);
+
+  // Close menu when navigating
+  useEffect(() => {
+    if (timelineRef.current && isOpen) {
+      timelineRef.current.reverse();
+      setIsOpen(false);
+    }
+  }, [pathname, isOpen]);
 
   return (
     <>
-      {/* Hamburger button - only visible on mobile */}
-      <button 
-        onClick={() => setIsOpen(!isOpen)}
-        className="md:hidden fixed top-4 left-4 z-20 p-2 rounded-md bg-emerald-700 text-white"
-        aria-label="Toggle menu"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
-          {isOpen ? (
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          ) : (
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-          )}
+      {/* Header with logo and hamburger */}
+      <header className="fixed top-0 left-0 w-full h-16 px-4 flex justify-between items-center z-30 bg-emerald-800 md:hidden">
+        <div id="navLogo" className="text-xl font-bold text-white">
+          <Link href="/">Siwa Wellness Resort</Link>
+        </div>
+        <svg className="hamburger w-8 h-8 cursor-pointer" viewBox="0 0 80 80" onClick={toggleMenu}>
+          <line ref={line01Ref} className="line01" x1="0" y1="3" x2="80" y2="3" stroke="white" strokeWidth="6" />
+          <line ref={line02Ref} className="line02" x1="0" y1="40" x2="80" y2="40" stroke="white" strokeWidth="6" />
+          <line ref={line03Ref} className="line03" x1="0" y1="77" x2="80" y2="77" stroke="white" strokeWidth="6" />
         </svg>
-      </button>
+      </header>
 
-      {/* Overlay that appears when menu is open on mobile */}
-      {isOpen && (
-        <div 
-          className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-10"
-          onClick={() => setIsOpen(false)}
-        ></div>
-      )}
+      {/* Full-screen Menu */}
+      <div ref={menuRef} className="menu fixed top-0 left-0 w-screen h-screen bg-gradient-to-b from-emerald-800 to-emerald-700 invisible opacity-0 z-20 md:hidden">
+        <nav className="navigation absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <ul className="p-0 m-0">
+            {navItems.map((item, index) => (
+              <li 
+                key={item.path} 
+                ref={(el) => { navItemsRef.current[index] = el; }}
+                className="list-none text-2xl mb-0"
+              >
+                <Link 
+                  href={item.path}
+                  className={`block py-2 text-white transition-colors hover:text-emerald-200 ${
+                    pathname === item.path ? 'font-bold text-emerald-200' : ''
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
 
-      {/* Navigation sidebar */}
-      <nav className={`fixed top-0 left-0 h-full ${sidebarWidth} bg-gradient-to-b from-emerald-800 to-emerald-700 text-white shadow-xl z-20 flex flex-col transform transition-transform duration-300 ease-in-out ${
-        isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
-      }`}>
-        <div className="p-6 mb-8 flex justify-between items-center">
+      {/* Desktop Sidebar - only visible on md+ screens */}
+      <nav className="hidden md:flex fixed top-0 left-0 h-full w-64 bg-gradient-to-b from-emerald-800 to-emerald-700 text-white shadow-xl z-20 flex-col">
+        <div className="p-6 mb-8">
           <Link href="/" className="text-2xl font-bold text-emerald-50 hover:text-white transition-colors">
             Siwa Wellness Resort
           </Link>
-          <button 
-            onClick={() => setIsOpen(false)}
-            className="md:hidden text-white"
-            aria-label="Close menu"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
         </div>
         <div className="flex-grow overflow-y-auto">
           {navItems.map((item) => (
