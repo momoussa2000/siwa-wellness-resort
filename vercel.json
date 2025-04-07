@@ -1,4 +1,6 @@
 {
   "framework": "nextjs",
-  "outputDirectory": "out"
+  "outputDirectory": "out",
+  "buildCommand": "next build",
+  "cleanUrls": true
 } 
