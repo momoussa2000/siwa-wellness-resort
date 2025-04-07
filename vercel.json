@@ -1,28 +1,4 @@
 {
-  "version": 2,
-  "public": true,
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "out"
-      }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "headers": {
-        "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
-        "x-frame-options": "DENY",
-        "x-content-type-options": "nosniff"
-      },
-      "dest": "/$1",
-      "continue": true
-    },
-    {
-      "handle": "filesystem"
-    }
-  ]
+  "framework": "nextjs",
+  "outputDirectory": "out"
 } 

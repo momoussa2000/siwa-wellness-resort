@@ -12,25 +12,7 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  async headers() {
-    return [
-      {
-        source: '/:path*',
-        headers: [
-          {
-            key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=()'
-          }
-        ],
-      },
-    ]
-  },
-  trailingSlash: true,
-  basePath: '',
-  experimental: {
-    isrMemoryCacheSize: 0,
-    serverActions: false
-  }
+  trailingSlash: true
 }
 
 module.exports = nextConfig 
