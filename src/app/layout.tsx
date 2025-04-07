@@ -17,10 +17,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className}`}>
+      <body className={`${inter.className} m-0 p-0 overflow-x-hidden`}>
         <ClientNav />
-        <main className="min-h-screen bg-white transition-all duration-300 ease-in-out pt-0 md:pt-0 px-4 md:px-8">
-          <div className="md:ml-20 pt-6 md:pt-8">
+        <main className="min-h-screen bg-white transition-all duration-300 ease-in-out">
+          <div className="md:ml-20 p-6 md:p-8">
             {children}
           </div>
         </main>
