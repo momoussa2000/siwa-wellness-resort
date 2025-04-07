@@ -1,7 +1,20 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Navigation from "@/components/Navigation";
+import dynamic from 'next/dynamic';
+
+// Use dynamic import with fallback for the Navigation component
+const Navigation = dynamic(
+  () => import('@/components/Navigation').catch(() => import('@/components/FallbackNavigation')),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="fixed top-0 left-0 w-full h-16 flex items-center px-4 bg-emerald-800 md:w-64 md:h-full">
+        <div className="text-xl font-bold text-white">Siwa Wellness Resort</div>
+      </div>
+    ),
+  }
+);
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,8 +28,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const sidebarWidth = "w-64"; // Must match Navigation.tsx
-
   return (
     <html lang="en">
       <body className={`${inter.className} flex`}>

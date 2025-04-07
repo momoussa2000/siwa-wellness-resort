@@ -3,7 +3,8 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
-import gsap from 'gsap';
+// Import GSAP with direct modules for better compatibility
+import { gsap } from 'gsap';
 
 const navItems = [
   { name: 'Home', path: '/' },
@@ -25,33 +26,71 @@ export default function Navigation() {
   const line02Ref = useRef<SVGLineElement>(null);
   const line03Ref = useRef<SVGLineElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
-  const navItemsRef = useRef<Array<HTMLLIElement | null>>([]);
+  const navItemsRef = useRef<HTMLLIElement[]>([]);
   const timelineRef = useRef<gsap.core.Timeline | null>(null);
   
   // Initialize animation timeline
   useEffect(() => {
-    // Set initial states
+    if (!line01Ref.current || !line02Ref.current || !line03Ref.current || !menuRef.current) {
+      console.error('Refs not properly initialized');
+      return;
+    }
+    
+    console.log('Initializing GSAP animation');
+    
+    // Instead of using gsap.set, directly modify the elements with inline styles for initial state
     gsap.set(line01Ref.current, { x: 40 });
     gsap.set(line03Ref.current, { x: -40 });
-    gsap.set(navItemsRef.current, { x: -110 });
     
-    // Create timeline
-    timelineRef.current = gsap.timeline({ paused: true })
-      .to(line01Ref.current, { duration: 0.4, x: '+=40' }, 0)
-      .to(line03Ref.current, { duration: 0.4, x: '-=40' }, 0)
-      .to(line02Ref.current, { duration: 0.4, autoAlpha: 0 }, 0)
-      .to(menuRef.current, { duration: 0.4, autoAlpha: 1 }, 0)
-      .to(navItemsRef.current, { 
+    // Create a simpler timeline first to test GSAP is working
+    try {
+      timelineRef.current = gsap.timeline({ paused: true });
+      
+      // Add each animation step separately for better debugging
+      timelineRef.current.to(line01Ref.current, { 
         duration: 0.4, 
-        x: 0, 
-        ease: "sine.out", 
-        stagger: 0.1 
-      }, 0.5)
-      .to(navItemsRef.current, { 
-        duration: 0.8, 
-        marginBottom: '20px', 
-        ease: "power1.out" 
-      });
+        x: 0,
+        rotation: 45,
+        transformOrigin: "center"
+      }, 0);
+      
+      timelineRef.current.to(line03Ref.current, { 
+        duration: 0.4, 
+        x: 0,
+        rotation: -45,
+        transformOrigin: "center"
+      }, 0);
+      
+      timelineRef.current.to(line02Ref.current, { 
+        duration: 0.4, 
+        autoAlpha: 0 
+      }, 0);
+      
+      timelineRef.current.to(menuRef.current, { 
+        duration: 0.4, 
+        autoAlpha: 1 
+      }, 0);
+      
+      // Only animate nav items if they exist in the DOM
+      if (navItemsRef.current.length > 0) {
+        timelineRef.current.to(navItemsRef.current, { 
+          duration: 0.5, 
+          x: 0, 
+          ease: "sine.out", 
+          stagger: 0.1 
+        }, 0.3);
+        
+        timelineRef.current.to(navItemsRef.current, { 
+          duration: 0.5, 
+          marginBottom: 20, 
+          ease: "power1.out" 
+        }, 0.5);
+      }
+      
+      console.log('GSAP timeline created successfully');
+    } catch (error) {
+      console.error('Error creating GSAP timeline:', error);
+    }
     
     return () => {
       // Cleanup
@@ -63,13 +102,22 @@ export default function Navigation() {
 
   // Handle menu toggle
   const toggleMenu = () => {
+    console.log('Toggle menu clicked, isOpen:', isOpen);
     if (timelineRef.current) {
-      if (isOpen) {
-        timelineRef.current.reverse();
-      } else {
-        timelineRef.current.play();
+      try {
+        if (isOpen) {
+          console.log('Reversing animation');
+          timelineRef.current.reverse();
+        } else {
+          console.log('Playing animation');
+          timelineRef.current.play();
+        }
+        setIsOpen(!isOpen);
+      } catch (error) {
+        console.error('Error toggling menu:', error);
       }
-      setIsOpen(!isOpen);
+    } else {
+      console.error('Timeline not initialized');
     }
   };
 
@@ -96,6 +144,13 @@ export default function Navigation() {
     }
   }, [pathname, isOpen]);
 
+  // Set up refs for nav items
+  const setNavItemRef = (el: HTMLLIElement | null, index: number) => {
+    if (el) {
+      navItemsRef.current[index] = el;
+    }
+  };
+
   return (
     <>
       {/* Header with logo and hamburger */}
@@ -111,14 +166,19 @@ export default function Navigation() {
       </header>
 
       {/* Full-screen Menu */}
-      <div ref={menuRef} className="menu fixed top-0 left-0 w-screen h-screen bg-gradient-to-b from-emerald-800 to-emerald-700 invisible opacity-0 z-20 md:hidden">
+      <div 
+        ref={menuRef} 
+        className="menu fixed top-0 left-0 w-screen h-screen bg-gradient-to-b from-emerald-800 to-emerald-700 invisible opacity-0 z-20 md:hidden"
+        style={{ visibility: 'hidden', opacity: 0 }}
+      >
         <nav className="navigation absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           <ul className="p-0 m-0">
             {navItems.map((item, index) => (
               <li 
                 key={item.path} 
-                ref={(el) => { navItemsRef.current[index] = el; }}
+                ref={(el) => setNavItemRef(el, index)} 
                 className="list-none text-2xl mb-0"
+                style={{ transform: 'translateX(-110px)' }}
               >
                 <Link 
                   href={item.path}

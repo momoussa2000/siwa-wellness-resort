@@ -23,7 +23,6 @@ body {
   stroke: white;
   stroke-width: 6px;
   transform-origin: center;
-  transition: transform 0.4s ease;
 }
 
 .menu {
@@ -36,7 +35,8 @@ body {
   overflow: hidden;
 }
 
-/* Add smooth transitions */
+/* Disable transitions so they don't conflict with GSAP */
 .menu, .navigation li, .hamburger line {
-  transition: all 0.4s ease;
+  /* Remove transition as GSAP will handle this */
+  transition: none;
 }
