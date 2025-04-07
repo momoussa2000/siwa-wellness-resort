@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
+  distDir: 'out',
   images: {
     unoptimized: true,
   },
@@ -12,7 +13,10 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  trailingSlash: true
+  trailingSlash: true,
+  generateBuildId: async () => {
+    return 'build'
+  }
 }
 
 module.exports = nextConfig 

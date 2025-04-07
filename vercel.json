@@ -1,6 +1,17 @@
 {
-  "framework": "nextjs",
-  "outputDirectory": "out",
+  "version": 2,
   "buildCommand": "next build",
-  "cleanUrls": true
+  "outputDirectory": "out",
+  "framework": "nextjs",
+  "cleanUrls": true,
+  "routes": [
+    {
+      "src": "/_next/static/(.*)",
+      "headers": { "cache-control": "public,max-age=31536000,immutable" },
+      "continue": true
+    },
+    {
+      "handle": "filesystem"
+    }
+  ]
 } 
