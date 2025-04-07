@@ -29,105 +29,79 @@ export default function Navigation() {
   const navItemsRef = useRef<HTMLLIElement[]>([]);
   const timelineRef = useRef<gsap.core.Timeline | null>(null);
   
-  // Initialize animation timeline
-  useEffect(() => {
-    if (!line01Ref.current || !line02Ref.current || !line03Ref.current || !menuRef.current) {
-      console.error('Refs not properly initialized');
-      return;
-    }
-    
-    console.log('Initializing GSAP animation');
-    
-    // Instead of using gsap.set, directly modify the elements with inline styles for initial state
-    gsap.set(line01Ref.current, { x: 40 });
-    gsap.set(line03Ref.current, { x: -40 });
-    
-    // Create a simpler timeline first to test GSAP is working
-    try {
-      timelineRef.current = gsap.timeline({ paused: true });
-      
-      // Add each animation step separately for better debugging
-      timelineRef.current.to(line01Ref.current, { 
-        duration: 0.4, 
-        x: 0,
-        rotation: 45,
-        transformOrigin: "center"
-      }, 0);
-      
-      timelineRef.current.to(line03Ref.current, { 
-        duration: 0.4, 
-        x: 0,
-        rotation: -45,
-        transformOrigin: "center"
-      }, 0);
-      
-      timelineRef.current.to(line02Ref.current, { 
-        duration: 0.4, 
-        autoAlpha: 0 
-      }, 0);
-      
-      timelineRef.current.to(menuRef.current, { 
-        duration: 0.4, 
-        autoAlpha: 1 
-      }, 0);
-      
-      // Only animate nav items if they exist in the DOM
-      if (navItemsRef.current.length > 0) {
-        timelineRef.current.to(navItemsRef.current, { 
-          duration: 0.5, 
-          x: 0, 
-          ease: "sine.out", 
-          stagger: 0.1 
-        }, 0.3);
-        
-        timelineRef.current.to(navItemsRef.current, { 
-          duration: 0.5, 
-          marginBottom: 20, 
-          ease: "power1.out" 
-        }, 0.5);
-      }
-      
-      console.log('GSAP timeline created successfully');
-    } catch (error) {
-      console.error('Error creating GSAP timeline:', error);
-    }
-    
-    return () => {
-      // Cleanup
-      if (timelineRef.current) {
-        timelineRef.current.kill();
-      }
-    };
-  }, []);
-
-  // Handle menu toggle
+  // Handle menu toggle directly without GSAP first
   const toggleMenu = () => {
     console.log('Toggle menu clicked, isOpen:', isOpen);
-    if (timelineRef.current) {
-      try {
-        if (isOpen) {
-          console.log('Reversing animation');
-          timelineRef.current.reverse();
-        } else {
-          console.log('Playing animation');
-          timelineRef.current.play();
-        }
-        setIsOpen(!isOpen);
-      } catch (error) {
-        console.error('Error toggling menu:', error);
+    
+    setIsOpen(!isOpen);
+    
+    if (!menuRef.current) return;
+    
+    if (!isOpen) {
+      // Opening the menu
+      menuRef.current.style.visibility = 'visible';
+      menuRef.current.style.opacity = '1';
+      
+      if (line01Ref.current) {
+        line01Ref.current.style.transform = 'translateX(0) rotate(45deg)';
+      }
+      if (line02Ref.current) {
+        line02Ref.current.style.opacity = '0';
+      }
+      if (line03Ref.current) {
+        line03Ref.current.style.transform = 'translateX(0) rotate(-45deg)';
       }
     } else {
-      console.error('Timeline not initialized');
+      // Closing the menu
+      menuRef.current.style.opacity = '0';
+      
+      setTimeout(() => {
+        if (menuRef.current) {
+          menuRef.current.style.visibility = 'hidden';
+        }
+      }, 300);
+      
+      if (line01Ref.current) {
+        line01Ref.current.style.transform = 'translateX(40px) rotate(0deg)';
+      }
+      if (line02Ref.current) {
+        line02Ref.current.style.opacity = '1';
+      }
+      if (line03Ref.current) {
+        line03Ref.current.style.transform = 'translateX(-40px) rotate(0deg)';
+      }
     }
   };
+
+  // Set initial states
+  useEffect(() => {
+    if (line01Ref.current) {
+      line01Ref.current.style.transform = 'translateX(40px)';
+    }
+    if (line03Ref.current) {
+      line03Ref.current.style.transform = 'translateX(-40px)';
+    }
+  }, []);
 
   // Handle resize
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 768) {
-        if (timelineRef.current && isOpen) {
-          timelineRef.current.reverse();
-          setIsOpen(false);
+      if (window.innerWidth >= 768 && isOpen) {
+        setIsOpen(false);
+        
+        if (menuRef.current) {
+          menuRef.current.style.visibility = 'hidden';
+          menuRef.current.style.opacity = '0';
+        }
+        
+        if (line01Ref.current) {
+          line01Ref.current.style.transform = 'translateX(40px) rotate(0deg)';
+        }
+        if (line02Ref.current) {
+          line02Ref.current.style.opacity = '1';
+        }
+        if (line03Ref.current) {
+          line03Ref.current.style.transform = 'translateX(-40px) rotate(0deg)';
         }
       }
     };
@@ -138,9 +112,23 @@ export default function Navigation() {
 
   // Close menu when navigating
   useEffect(() => {
-    if (timelineRef.current && isOpen) {
-      timelineRef.current.reverse();
+    if (isOpen) {
       setIsOpen(false);
+      
+      if (menuRef.current) {
+        menuRef.current.style.visibility = 'hidden';
+        menuRef.current.style.opacity = '0';
+      }
+      
+      if (line01Ref.current) {
+        line01Ref.current.style.transform = 'translateX(40px) rotate(0deg)';
+      }
+      if (line02Ref.current) {
+        line02Ref.current.style.opacity = '1';
+      }
+      if (line03Ref.current) {
+        line03Ref.current.style.transform = 'translateX(-40px) rotate(0deg)';
+      }
     }
   }, [pathname, isOpen]);
 
@@ -165,11 +153,15 @@ export default function Navigation() {
         </svg>
       </header>
 
-      {/* Full-screen Menu */}
+      {/* Full-screen Menu with transitions */}
       <div 
         ref={menuRef} 
-        className="menu fixed top-0 left-0 w-screen h-screen bg-gradient-to-b from-emerald-800 to-emerald-700 invisible opacity-0 z-20 md:hidden"
-        style={{ visibility: 'hidden', opacity: 0 }}
+        className="menu fixed top-0 left-0 w-screen h-screen bg-gradient-to-b from-emerald-800 to-emerald-700 z-20 md:hidden"
+        style={{ 
+          visibility: 'hidden', 
+          opacity: 0,
+          transition: 'opacity 0.3s ease'
+        }}
       >
         <nav className="navigation absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           <ul className="p-0 m-0">
@@ -177,8 +169,11 @@ export default function Navigation() {
               <li 
                 key={item.path} 
                 ref={(el) => setNavItemRef(el, index)} 
-                className="list-none text-2xl mb-0"
-                style={{ transform: 'translateX(-110px)' }}
+                className="list-none text-2xl mb-4"
+                style={{ 
+                  transform: isOpen ? 'translateX(0)' : 'translateX(-110px)',
+                  transition: `transform 0.5s ease ${index * 0.1}s`
+                }}
               >
                 <Link 
                   href={item.path}
