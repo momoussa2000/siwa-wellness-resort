@@ -16,13 +16,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const sidebarWidth = "w-64"; // Must match Navigation.tsx
-  const mainPadding = "pl-64"; // Must correspond to sidebarWidth
 
   return (
     <html lang="en">
       <body className={`${inter.className} flex`}>
         <Navigation />
-        <main className={`flex-grow min-h-screen bg-white ${mainPadding}`}>
+        <main className="flex-grow min-h-screen bg-white pl-0 md:pl-64 transition-all duration-300 ease-in-out">
           {children}
         </main>
       </body>
