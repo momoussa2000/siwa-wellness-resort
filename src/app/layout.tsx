@@ -19,8 +19,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} m-0 p-0 overflow-x-hidden`}>
         <ClientNav />
-        <main className="min-h-screen bg-white transition-all duration-300 ease-in-out">
-          <div className="md:ml-20">
+        <main className="min-h-screen transition-all duration-300 ease-in-out">
+          <div className="w-full">
             {children}
           </div>
         </main>
