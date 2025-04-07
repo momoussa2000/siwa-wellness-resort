@@ -1,9 +1,9 @@
 {
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
+  "version": 2,
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "/404.html" }
   ],
-  "trailingSlash": true
+  "buildCommand": "npm run build",
+  "outputDirectory": "out"
 } 
