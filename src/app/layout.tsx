@@ -6,8 +6,8 @@ import ClientNav from "@/components/ClientNav";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Siwa Wellness Resort - Business Plan",
-  description: "A comprehensive business plan presentation for Siwa Wellness Resort",
+  title: "ZARDA - Business Plan",
+  description: "A comprehensive business plan presentation for ZARDA wellness resort",
 };
 
 export default function RootLayout({

@@ -43,7 +43,7 @@ export default function FallbackNavigation() {
       {/* Mobile header with hamburger */}
       <header className="fixed top-0 left-0 w-full h-16 px-4 flex justify-between items-center z-30 bg-emerald-800 md:hidden">
         <div className="text-xl font-bold text-white">
-          <Link href="/">Siwa Wellness Resort</Link>
+          <Link href="/">ZARDA</Link>
         </div>
         <button 
           onClick={() => setIsOpen(!isOpen)}
@@ -84,7 +84,7 @@ export default function FallbackNavigation() {
       <nav className="hidden md:flex fixed top-0 left-0 h-full w-64 bg-gradient-to-b from-emerald-800 to-emerald-700 text-white shadow-xl z-20 flex-col">
         <div className="p-6 mb-8">
           <Link href="/" className="text-2xl font-bold text-emerald-50 hover:text-white transition-colors">
-            Siwa Wellness Resort
+            ZARDA
           </Link>
         </div>
         <div className="flex-grow overflow-y-auto">
@@ -104,7 +104,7 @@ export default function FallbackNavigation() {
         </div>
         {/* Footer */}
         <div className="p-4 mt-auto text-xs text-emerald-300">
-          © {new Date().getFullYear()} Siwa Wellness Resort
+          © {new Date().getFullYear()} ZARDA
         </div>
       </nav>
     </>

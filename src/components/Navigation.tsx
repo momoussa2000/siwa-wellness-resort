@@ -63,7 +63,7 @@ export default function Navigation() {
     <>
       {/* Mobile header with hamburger */}
       <header className="fixed top-0 left-0 w-full h-16 px-4 flex justify-between items-center z-50 bg-emerald-800 md:hidden">
-        <div className="text-xl font-bold text-white">Siwa Wellness Resort</div>
+        <div className="text-xl font-bold text-white">ZARDA</div>
         <button 
           onClick={toggleSidebar}
           className="w-10 h-10 flex items-center justify-center text-white"
@@ -135,7 +135,7 @@ export default function Navigation() {
           <div className="absolute bottom-0 left-0 w-full p-4 border-t border-emerald-700">
             <div className={`transition-opacity duration-300 ${expanded ? 'opacity-100' : 'opacity-0'}`}>
               <div className="text-sm text-emerald-200">© {new Date().getFullYear()}</div>
-              <div className="text-xs text-emerald-300">Siwa Wellness Resort</div>
+              <div className="text-xs text-emerald-300">ZARDA</div>
             </div>
           </div>
         )}

@@ -32,7 +32,7 @@ export default function Home() {
       <section className="hero-section h-screen">
         <Image
           src="/images/a-wide-angle-landscape-render-of-a-groun_RKGBscJ9T5K3M-iHzFEZmw_vvC4yO75TfulKwWV_08VPQ.png"
-          alt="Siwa Wellness Resort Layout"
+          alt="ZARDA Resort Layout"
           fill
           className="object-cover"
           priority
@@ -46,7 +46,7 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             className="text-5xl md:text-7xl font-bold text-center mb-6"
           >
-            Siwa Wellness Resort
+            ZARDA
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -94,7 +94,7 @@ export default function Home() {
             >
               <h2 className="text-3xl md:text-4xl font-bold mb-6">Discover Siwa's Magic</h2>
               <p className="text-gray-800 mb-6">
-                Welcome to Siwa Wellness Resort, a mid-range luxury retreat nestled in Egypt's enchanting Siwa Oasis. 
+                Welcome to ZARDA, a mid-range luxury retreat nestled in Egypt's enchanting Siwa Oasis. 
                 Our eco-friendly resort features 15-20 authentic mud-brick huts, offering a perfect blend of traditional 
                 architecture and modern comfort. Experience transformative wellness through our yoga retreats, spa experiences, 
                 and curated cultural activities.
