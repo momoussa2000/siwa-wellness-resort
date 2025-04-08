@@ -106,11 +106,11 @@ export default function Navigation() {
               {expanded ? (
                 <Link href="/" className="flex justify-center">
                   <Image 
-                    src="/images/zarda logo txt.png" 
+                    src="/images/zarda logo txt wht.png" 
                     alt="ZARDA Logo" 
                     width={160} 
                     height={50} 
-                    className="object-contain"
+                    className="object-contain drop-shadow-md filter brightness-110"
                   />
                 </Link>
               ) : (
