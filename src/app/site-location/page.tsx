@@ -7,7 +7,7 @@ export default function SiteLocation() {
     {
       title: "Natural Resources",
       features: [
-        "Natural hot and cold springs",
+        "Natural hot springs",
         "Mineral-rich salt lakes",
         "Desert landscape",
         "Palm groves and olive trees"
