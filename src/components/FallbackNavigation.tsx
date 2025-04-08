@@ -46,11 +46,11 @@ export default function FallbackNavigation() {
         <div className="flex items-center">
           <Link href="/">
             <Image 
-              src="/images/zarda logo symbol wht-01.png" 
+              src="/images/zarda logo symbol wht.png" 
               alt="ZARDA Logo" 
-              width={40} 
-              height={40} 
-              className="object-contain"
+              width={50} 
+              height={50} 
+              className="object-contain drop-shadow-md filter brightness-110"
             />
           </Link>
         </div>
@@ -94,7 +94,7 @@ export default function FallbackNavigation() {
         <div className="p-6 mb-8 flex items-center justify-center">
           <Link href="/">
             <Image 
-              src="/images/zarda logo txt wht.png" 
+              src="/images/zarda logo txt.png" 
               alt="ZARDA Logo" 
               width={160} 
               height={50} 

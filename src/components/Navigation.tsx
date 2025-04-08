@@ -66,11 +66,11 @@ export default function Navigation() {
       <header className="fixed top-0 left-0 w-full h-16 px-4 flex justify-between items-center z-50 bg-emerald-800 md:hidden">
         <div className="flex items-center">
           <Image 
-            src="/images/zarda logo symbol wht-01.png" 
+            src="/images/zarda logo symbol wht.png" 
             alt="ZARDA Logo" 
-            width={40} 
-            height={40} 
-            className="object-contain"
+            width={50} 
+            height={50} 
+            className="object-contain drop-shadow-md filter brightness-110" 
           />
         </div>
         <button 
@@ -106,7 +106,7 @@ export default function Navigation() {
               {expanded ? (
                 <Link href="/" className="flex justify-center">
                   <Image 
-                    src="/images/zarda logo txt wht.png" 
+                    src="/images/zarda logo txt.png" 
                     alt="ZARDA Logo" 
                     width={160} 
                     height={50} 
@@ -116,11 +116,11 @@ export default function Navigation() {
               ) : (
                 <Link href="/" className="flex justify-center">
                   <Image 
-                    src="/images/zarda logo symbol wht-01.png" 
+                    src="/images/zarda logo symbol wht.png" 
                     alt="ZARDA Symbol" 
                     width={40} 
                     height={40} 
-                    className="object-contain"
+                    className="object-contain drop-shadow-md filter brightness-110"
                   />
                 </Link>
               )}
