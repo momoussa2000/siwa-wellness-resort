@@ -66,7 +66,7 @@ export default function Navigation() {
       <header className="fixed top-0 left-0 w-full h-16 px-4 flex justify-between items-center z-50 bg-emerald-800 md:hidden">
         <div className="flex items-center">
           <Image 
-            src="/images/zarda logo symbol wht.png" 
+            src="/images/zarda logo symbol wht-01.png" 
             alt="ZARDA Logo" 
             width={40} 
             height={40} 
@@ -106,7 +106,7 @@ export default function Navigation() {
               {expanded ? (
                 <Link href="/" className="flex justify-center">
                   <Image 
-                    src="/images/zarda logo txt.png" 
+                    src="/images/zarda logo txt wht.png" 
                     alt="ZARDA Logo" 
                     width={160} 
                     height={50} 
@@ -116,7 +116,7 @@ export default function Navigation() {
               ) : (
                 <Link href="/" className="flex justify-center">
                   <Image 
-                    src="/images/zarda logo symbol.png" 
+                    src="/images/zarda logo symbol wht-01.png" 
                     alt="ZARDA Symbol" 
                     width={40} 
                     height={40} 
