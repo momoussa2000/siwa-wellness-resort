@@ -66,9 +66,9 @@ export default function Navigation() {
       <header className="fixed top-0 left-0 w-full h-16 px-4 flex justify-between items-center z-50 bg-emerald-800 md:hidden">
         <div className="flex items-center">
           <Image 
-            src="/images/zarda logo txt.png" 
+            src="/images/zarda logo symbol wht.png" 
             alt="ZARDA Logo" 
-            width={120} 
+            width={40} 
             height={40} 
             className="object-contain"
           />
