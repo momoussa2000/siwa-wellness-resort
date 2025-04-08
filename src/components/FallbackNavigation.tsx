@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 
@@ -9,11 +10,11 @@ const navItems = [
   { name: '1. Executive Summary', path: '/executive-summary' },
   { name: '2. Vision & Mission', path: '/vision-mission' },
   { name: '3. Concept & Design', path: '/concept-design' },
-  { name: '4. Target Market & Opportunity', path: '/target-market' },
+  { name: '4. Target Market', path: '/target-market' },
   { name: '5. Site & Location', path: '/site-location' },
   { name: '6. Facility Layout', path: '/facility-layout' },
-  { name: '7. Activities & Experiences', path: '/activities' },
-  { name: '8. Service Model & Revenue', path: '/service-model' },
+  { name: '7. Activities', path: '/activities' },
+  { name: '8. Service Model', path: '/service-model' },
   { name: '9. Financial Projections', path: '/financial-projections' }
 ];
 
@@ -42,8 +43,16 @@ export default function FallbackNavigation() {
     <>
       {/* Mobile header with hamburger */}
       <header className="fixed top-0 left-0 w-full h-16 px-4 flex justify-between items-center z-30 bg-emerald-800 md:hidden">
-        <div className="text-xl font-bold text-white">
-          <Link href="/">ZARDA</Link>
+        <div className="flex items-center">
+          <Link href="/">
+            <Image 
+              src="/images/zarda logo txt.png" 
+              alt="ZARDA Logo" 
+              width={120} 
+              height={40} 
+              className="object-contain"
+            />
+          </Link>
         </div>
         <button 
           onClick={() => setIsOpen(!isOpen)}
@@ -82,9 +91,15 @@ export default function FallbackNavigation() {
 
       {/* Desktop Sidebar */}
       <nav className="hidden md:flex fixed top-0 left-0 h-full w-64 bg-gradient-to-b from-emerald-800 to-emerald-700 text-white shadow-xl z-20 flex-col">
-        <div className="p-6 mb-8">
-          <Link href="/" className="text-2xl font-bold text-emerald-50 hover:text-white transition-colors">
-            ZARDA
+        <div className="p-6 mb-8 flex items-center justify-center">
+          <Link href="/">
+            <Image 
+              src="/images/zarda logo txt.png" 
+              alt="ZARDA Logo" 
+              width={160} 
+              height={50} 
+              className="object-contain"
+            />
           </Link>
         </div>
         <div className="flex-grow overflow-y-auto">

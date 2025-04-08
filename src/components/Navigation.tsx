@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
 import { FaHome, FaFileAlt, FaBullseye, FaPencilRuler, FaUsers, FaMapMarkedAlt, FaBuilding, FaHiking, FaMoneyBillWave, FaChartLine } from 'react-icons/fa';
@@ -63,7 +64,15 @@ export default function Navigation() {
     <>
       {/* Mobile header with hamburger */}
       <header className="fixed top-0 left-0 w-full h-16 px-4 flex justify-between items-center z-50 bg-emerald-800 md:hidden">
-        <div className="text-xl font-bold text-white">ZARDA</div>
+        <div className="flex items-center">
+          <Image 
+            src="/images/zarda logo txt.png" 
+            alt="ZARDA Logo" 
+            width={120} 
+            height={40} 
+            className="object-contain"
+          />
+        </div>
         <button 
           onClick={toggleSidebar}
           className="w-10 h-10 flex items-center justify-center text-white"
@@ -93,10 +102,28 @@ export default function Navigation() {
         {/* Logo section - only on desktop */}
         {!isMobile && (
           <div className="flex items-center justify-center p-4 border-b border-emerald-700">
-            <div className={`logo transition-opacity duration-300 ${expanded ? 'opacity-100' : 'opacity-0'}`}>
-              <Link href="/" className="text-xl font-bold whitespace-nowrap">
-                Siwa Wellness
-              </Link>
+            <div className={`logo transition-all duration-300 ${expanded ? 'scale-100 opacity-100' : 'scale-75 opacity-90'}`}>
+              {expanded ? (
+                <Link href="/" className="flex justify-center">
+                  <Image 
+                    src="/images/zarda logo txt.png" 
+                    alt="ZARDA Logo" 
+                    width={160} 
+                    height={50} 
+                    className="object-contain"
+                  />
+                </Link>
+              ) : (
+                <Link href="/" className="flex justify-center">
+                  <Image 
+                    src="/images/zarda logo symbol.png" 
+                    alt="ZARDA Symbol" 
+                    width={40} 
+                    height={40} 
+                    className="object-contain"
+                  />
+                </Link>
+              )}
             </div>
           </div>
         )}

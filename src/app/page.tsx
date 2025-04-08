@@ -41,14 +41,20 @@ export default function Home() {
         <div className="absolute inset-0 bg-black/40" />
         
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-white px-4">
-          <motion.h1 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-5xl md:text-7xl font-bold text-center mb-6"
+            className="mb-6"
           >
-            ZARDA
-          </motion.h1>
+            <Image 
+              src="/images/zarda logo.png" 
+              alt="ZARDA" 
+              width={300} 
+              height={100} 
+              className="object-contain" 
+            />
+          </motion.div>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
