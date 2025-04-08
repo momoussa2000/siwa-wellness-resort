@@ -48,7 +48,7 @@ export default function Home() {
             className="mb-6"
           >
             <Image 
-              src="/images/zarda logo.png" 
+              src="/images/zarda logo wht.png" 
               alt="ZARDA" 
               width={300} 
               height={100} 
