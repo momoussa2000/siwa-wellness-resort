@@ -26,9 +26,9 @@ export default function SiteLocation() {
       title: "Accessibility",
       features: [
         "8-hour drive from Cairo",
-        "Private airport nearby",
         "4x4 vehicle access",
-        "Helicopter landing area"
+        "Local transportation options",
+        "Guided tour services"
       ]
     }
   ];
