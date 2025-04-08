@@ -13,6 +13,16 @@ export default function FacilityLayout() {
           name: "Wide Angle Landscape",
           path: "/images/a-wide-angle-landscape-render-of-a-groun_RKGBscJ9T5K3M-iHzFEZmw_vvC4yO75TfulKwWV_08VPQ.png",
           description: "Overall view of the resort layout"
+        },
+        {
+          name: "Luxurious Desert Eco Resort",
+          path: "/images/a-photograph-of-a-luxurious-desert-eco-l_ygl3Viu5TnKYv714_p7fhw_taGlWxdySgGWV7G74vzmag.png",
+          description: "Aerial view of the eco-friendly resort design"
+        },
+        {
+          name: "Desert Integration",
+          path: "/images/Luxurious Desert Eco Photo (1).png",
+          description: "How the resort integrates naturally with the desert environment"
         }
       ]
     },
