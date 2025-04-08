@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 export default function FinancialProjections() {
   const financialData = {
     summary: {
-      totalInvestment: "14.8M – 19.05M EGP",
+      totalInvestment: "20-25M EGP",
       projectedRevenueY1: "52M EGP",
       projectedEBITDAY1: "34M EGP",
       expectedROI: "3-5 Years",
@@ -22,16 +22,19 @@ export default function FinancialProjections() {
       roomCount: "20"
     },
     facilitiesCosts: [
-      { item: "Land Acquisition", cost: "10M-12M EGP" },
-      { item: "Pool & Landscaping", cost: "800K-1.2M EGP" },
-      { item: "Kitchen & Restaurant", cost: "1.5M-2M EGP" },
-      { item: "Spa & Wellness Center", cost: "600K-800K EGP" },
-      { item: "Eco Huts (15-20 units)", cost: "1.2M-1.5M EGP" },
-      { item: "Yoga Space", cost: "200K-300K EGP" },
-      { item: "Cold Room", cost: "150K-200K EGP" },
-      { item: "Gift Shop", cost: "100K-150K EGP" },
-      { item: "Staff Housing", cost: "500K-700K EGP" },
-      { item: "Hydroponic Farm", cost: "100K EGP" }
+      { item: "Land Acquisition (2 feddan)", cost: "1.6-2M EGP" },
+      { item: "Pool & Landscaping", cost: "3M EGP" },
+      { item: "Kitchen & Restaurant", cost: "2M EGP" },
+      { item: "20 Mud Rooms @180K", cost: "5M EGP" },
+      { item: "2 Yoga Shala", cost: "300K EGP" },
+      { item: "Cold Room", cost: "500K EGP" },
+      { item: "Storage Room", cost: "200K EGP" },
+      { item: "Gift Shop", cost: "250K EGP" },
+      { item: "Staff Housing", cost: "750K-1M EGP" },
+      { item: "Hydroponic Farm", cost: "150K EGP" },
+      { item: "Reception Area", cost: "250K EGP" },
+      { item: "3 Separate Lounge Areas", cost: "600-750K EGP" },
+      { item: "Spa", cost: "1.5-2M EGP" }
     ],
     hydroponicFarmImpact: {
       initialInvestment: "100K EGP",
@@ -40,10 +43,10 @@ export default function FinancialProjections() {
       estimatedROI: "12-18 months"
     },
     operationalExpensesSummary: {
-      retailEstimateMonthly: "148,000 EGP",
-      wholesaleEstimateMonthly: "103,600 – 118,400 EGP",
-      potentialMonthlySavings: "29,600 – 44,400 EGP",
-      savingsPercentage: "20-30%"
+      retailEstimateMonthly: "550,000 EGP",
+      wholesaleEstimateMonthly: "440,000 - 495,000 EGP",
+      potentialMonthlySavings: "55,000 - 110,000 EGP",
+      savingsPercentage: "10-20%"
     },
     operationalExpensesBreakdown: {
       salariesWages: {
